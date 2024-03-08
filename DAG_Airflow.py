@@ -9,25 +9,18 @@ from models import *
 
 def upsert_jobs():
 
-    def generate_embeddings(description):
-        if description is None:
-            return None
-        inputs = tokenizer(text=description, return_tensors='pt',
-                           padding=True, truncation=True)
-        with torch.no_grad():
-            outputs = model(**inputs)
-            last_hidden_state = outputs.last_hidden_state
-        avg_embedding = torch.mean(last_hidden_state, dim=1).squeeze().numpy()
-        return avg_embedding.tolist()
-
     def scrape_and_create_embeddings(site_name):
-        jobs = scrape_jobs(site_name)
+        jobs = scrape_jobs(site_name=site_name)
         
         embeddings = []
         for index, row in jobs.iterrows():
-            description = row['description']  # Accessing description column
-            embedding = generate_embeddings(description)
-            embeddings.append(embedding)
+            description = row['description']
+            #print(description)  # Accessing description column
+            if description == None:
+                embeddings.append(description)
+            else:
+                embedding = generate_embedding(description)
+                embeddings.append(embedding)
 
         # Add the embeddings list as a new column named 'embedding' to the DataFrame
         jobs['embedding'] = embeddings
@@ -53,7 +46,7 @@ def upsert_jobs():
 
 with DAG(
     dag_id='upsert_jobs_daily',
-    start_date=datetime(2024, 3, 5),
+    start_date=datetime(2024, 3, 9),
     schedule='0 1 * * *'
 ) as dag:
     task1 = PythonOperator(
