@@ -1,4 +1,3 @@
-# DDS-group-17
 # Career Mongo: : A personalized Job Search Engine
 
 ## Overview
