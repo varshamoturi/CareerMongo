@@ -23,8 +23,7 @@ def upsert_jobs():
         return avg_embedding.tolist()
 
     def scrape_and_create_embeddings(site_name):
-        jobs = scrape_jobs(
-        )
+        jobs = scrape_jobs(site_name)
         
         embeddings = []
         for index, row in jobs.iterrows():
