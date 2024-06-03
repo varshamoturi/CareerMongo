@@ -1,5 +1,5 @@
 # Career Mongo: : A personalized Job Search Engine
-
+Team: Bassim Eledath, Claire Zhou, John Bailey,Sung Hyun (James) Chung, Varsha Moturi
 ## Overview
 Career Mongo is a project aimed at helping users find relevant job opportunities based on their skills and work experience. It utilizes various technologies such as web scraping, natural language processing, and database management to provide job recommendations and streamline the job search process.
 
